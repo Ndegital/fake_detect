@@ -138,4 +138,4 @@ if uploaded_file:
     # 3. 出力
     st.write("### 処理結果")
     st.success("計算が完了しました！")
-    st.dataframe(result)
+    st.table(result)
