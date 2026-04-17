@@ -1,4 +1,4 @@
-
+import numpy as np
 
 #推論用コード
 def fake_detect(data,query_count):
