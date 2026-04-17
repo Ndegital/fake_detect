@@ -122,7 +122,7 @@ st.title("虚偽項目推定")
 uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="csv")
 
 if uploaded_file:
-    data = pd.read_csv(uploaded_file)
+    data = pd.read_csv(uploaded_file, encoding='shift_jis')
     match_count = data.iloc[0, 0] 
     query_count = data.iloc[0, 1]
     data = data.iloc[1:,]
