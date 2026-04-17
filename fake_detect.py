@@ -132,7 +132,7 @@ if uploaded_file:
     st.write("### アルゴリズム実行中...")
     result = fake_detect(data,query_count)
     df = pd.DataFrame({
-    '項目': [i for i in range(1,query_count+1)],
+    '項目': [f"項目{i}" for i in range(1,query_count+1)],
     '虚偽確率': result
     })
     # 3. 出力
