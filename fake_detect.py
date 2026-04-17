@@ -6,13 +6,14 @@ def fake_detect(data,match_count,query_count):
     company = []
     open_val = []
     feedback = []
+    data_val = data.values
     lam = 0.01  # 罰金項の重み
     lam2 = 1/(query_count**2) #自滅防止項の重み
     for i in range(match_count):
-        worker.append(data[5*i+1])
-        company.append(data[5*i+2])
-        open_val.append(data[5*i+3])
-        feedback.append(data[5*i+4])
+        worker.append(data_val[5*i+1])
+        company.append(data_val[5*i+2])
+        open_val.append(data_val[5*i+3])
+        feedback.append(data_val[5*i+4])
     
     worker = np.array(worker)
     company = np.array(company)
@@ -124,7 +125,7 @@ st.title("虚偽項目推定")
 uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="xlsx")
 
 if uploaded_file:
-    data = pd.read_excel(uploaded_file, encoding='shift_jis')
+    data = pd.read_excel(uploaded_file)
     match_count = 1000
     query_count = 10
     st.write("### アルゴリズム実行中...")
