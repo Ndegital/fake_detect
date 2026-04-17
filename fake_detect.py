@@ -16,10 +16,10 @@ def fake_detect(data,query_count):
         open_val.append(data_val[5*i+3, 0:])
         feedback.append(data_val[5*i+4, 0])
     
-    worker = np.array(worker)
-    company = np.array(company)
-    open_val = np.array(open_val)
-    feedback = np.array(feedback)
+    worker = np.array(worker, dtype=float)
+    company = np.array(company, dtype=float)
+    open_val = np.array(open_val, dtype=float)
+    feedback = np.array(feedback, dtype=float)
     
     # 2. 係数行列・ベクトルの計算
     W = np.zeros((match_count, query_count * 2))
