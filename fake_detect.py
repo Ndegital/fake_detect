@@ -133,7 +133,7 @@ if uploaded_file:
     result = fake_detect(data,query_count)
     df = pd.DataFrame({
     '項目': [f"項目{i}" for i in range(1,query_count+1)],
-    '虚偽確率': result
+    '虚偽確率(単位%)': result
     })
     # 3. 出力
     st.write("### 処理結果")
