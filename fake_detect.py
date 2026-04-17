@@ -123,10 +123,10 @@ import pandas as pd
 st.title("虚偽項目推定")
 
 # 1. ファイルアップロード
-uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="xlsx", header=None)
+uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="xlsx")
 
 if uploaded_file:
-    data = pd.read_excel(uploaded_file)
+    data = pd.read_excel(uploaded_file, header=None)
     query_count = 10
     st.write("### アルゴリズム実行中...")
     result = fake_detect(data,query_count)
