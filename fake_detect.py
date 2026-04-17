@@ -1,3 +1,5 @@
+pip install pandas openpyxl
+
 #推論用コード
 def fake_detect(data,match_count,query_count):
     worker = []
@@ -112,7 +114,6 @@ def fake_detect(data,match_count,query_count):
     return bias_remove
 
 
-pip install openpyxl
 import streamlit as st
 import pandas as pd
 
