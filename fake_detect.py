@@ -1,8 +1,5 @@
-import streamlit as st
-import pandas as pd
-
 #推論用コード
-def fake_detect(data):
+def fake_detect(data,match_count,query_count):
     worker = []
     company = []
     open = []
@@ -112,7 +109,8 @@ def fake_detect(data):
     bias_remove = bias_remove[0:2*query_count]
     return bias_remove
 
-
+import streamlit as st
+import pandas as pd
 
 # タイトル
 st.title("虚偽項目推定")
@@ -122,8 +120,11 @@ uploaded_file = st.file_uploader("CSVファイルをアップロードしてく�
 
 if uploaded_file:
     data = pd.read_csv(uploaded_file)
+    match_count = data[0][0] 
+    query_count = data[0][1]
+    data = data[1:]
     st.write("### アルゴリズム実行中...")
-    result = fake_detect(data)
+    result = fake_detect(data,match_count,query_count)
     df = pd.DataFrame({
     '項目': [i for i in range(1,query_count+1)],
     '虚偽確率': result
