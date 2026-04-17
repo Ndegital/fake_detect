@@ -13,7 +13,7 @@ def fake_detect(data,match_count,query_count):
         worker.append(data_val[5*i+1])
         company.append(data_val[5*i+2])
         open_val.append(data_val[5*i+3])
-        feedback.append(data_val[5*i+4])
+        feedback.append(data_val[5*i+4, 0])
     
     worker = np.array(worker)
     company = np.array(company)
