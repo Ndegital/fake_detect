@@ -7,7 +7,7 @@ def fake_detect(data,query_count):
     open_val = []
     feedback = []
     data_val = data.values
-    match_count = len(data_val)
+    match_count = len(data_val)//5
     lam = 0.01  # 罰金項の重み
     lam2 = 1/(query_count**2) #自滅防止項の重み
     for i in range(match_count):
