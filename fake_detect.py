@@ -1,4 +1,4 @@
-pip install pandas openpyxl
+
 
 #推論用コード
 def fake_detect(data,match_count,query_count):
