@@ -1,12 +1,13 @@
 
 
 #推論用コード
-def fake_detect(data,match_count,query_count):
+def fake_detect(data,query_count):
     worker = []
     company = []
     open_val = []
     feedback = []
     data_val = data.values
+    match_count = len(data_val)
     lam = 0.01  # 罰金項の重み
     lam2 = 1/(query_count**2) #自滅防止項の重み
     for i in range(match_count):
@@ -122,14 +123,13 @@ import pandas as pd
 st.title("虚偽項目推定")
 
 # 1. ファイルアップロード
-uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="xlsx")
+uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="xlsx", header=None)
 
 if uploaded_file:
     data = pd.read_excel(uploaded_file)
-    match_count = 1000
     query_count = 10
     st.write("### アルゴリズム実行中...")
-    result = fake_detect(data,match_count,query_count)
+    result = fake_detect(data,query_count)
     df = pd.DataFrame({
     '項目': [i for i in range(1,query_count+1)],
     '虚偽確率': result
