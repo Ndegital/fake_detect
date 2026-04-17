@@ -2,18 +2,20 @@
 def fake_detect(data,match_count,query_count):
     worker = []
     company = []
-    open = []
-    feed_back = []
+    open_val = []
+    feedback = []
+    lam = 0.01  # 罰金項の重み
+    lam2 = 1/(query_count**2) #自滅防止項の重み
     for i in range(match_count):
         worker.append(data[5*i+1])
         company.append(data[5*i+2])
-        open.append(data[5*i+3])
-        feed_back.append(data[5*i+4])
+        open_val.append(data[5*i+3])
+        feedback.append(data[5*i+4])
     
     worker = np.array(worker)
     company = np.array(company)
-    open = np.array(open)
-    feed_back = np.array(feed_back)
+    open_val = np.array(open_val)
+    feedback = np.array(feedback)
     
     # 2. 係数行列・ベクトルの計算
     W = np.zeros((match_count, query_count * 2))
@@ -28,8 +30,8 @@ def fake_detect(data,match_count,query_count):
     # 自滅防止項
     
     add = np.zeros(query_count*2)
-    add[0::2] = np.sum((-company/2+0.5)*(worker/2+0.5)*open, axis=0)
-    add[1::2] = np.sum((company/2+0.5)*(-worker/2+0.5)*open, axis=0)
+    add[0::2] = np.sum((-company/2+0.5)*(worker/2+0.5)*open_val, axis=0)
+    add[1::2] = np.sum((company/2+0.5)*(-worker/2+0.5)*open_val, axis=0)
     add_1 = np.zeros(query_count*2+1)
     add_1[0:query_count*2] = add
     np.fill_diagonal(L, L.diagonal() + lam2 * add_1)
@@ -109,6 +111,7 @@ def fake_detect(data,match_count,query_count):
     bias_remove = bias_remove[0:2*query_count]
     return bias_remove
 
+
 import streamlit as st
 import pandas as pd
 
@@ -120,9 +123,9 @@ uploaded_file = st.file_uploader("CSVファイルをアップロードしてく�
 
 if uploaded_file:
     data = pd.read_csv(uploaded_file)
-    match_count = data[0][0] 
-    query_count = data[0][1]
-    data = data[1:]
+    match_count = data.iloc[0, 0] 
+    query_count = data.iloc[0, 1]
+    data = data.iloc[1:,]
     st.write("### アルゴリズム実行中...")
     result = fake_detect(data,match_count,query_count)
     df = pd.DataFrame({
