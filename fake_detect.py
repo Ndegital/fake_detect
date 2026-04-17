@@ -80,8 +80,8 @@ def fake_detect(data,match_count,query_count):
     
         grad = 2 * np.dot(M.T, residuals_masked) + lam * grad_barrier
         grad_add = np.zeros(query_count*2)
-        grad_add[0::2] = -2 * (1 - r_params[0::2]) * lam2 * np.sum((-company/2+0.5)*(worker/2+0.5)*open, axis=0)
-        grad_add[1::2] = 2 * r_params[1::2] * lam2 * np.sum((company/2+0.5)*(-worker/2+0.5)*open, axis=0)
+        grad_add[0::2] = -2 * (1 - r_params[0::2]) * lam2 * np.sum((-company/2+0.5)*(worker/2+0.5)*open_val, axis=0)
+        grad_add[1::2] = 2 * r_params[1::2] * lam2 * np.sum((company/2+0.5)*(-worker/2+0.5)*open_val, axis=0)
         grad_add_1 = np.zeros(query_count*2+1)
         grad_add_1[0:query_count*2] = grad_add
         grad += grad_add_1
@@ -112,6 +112,7 @@ def fake_detect(data,match_count,query_count):
     return bias_remove
 
 
+pip install openpyxl
 import streamlit as st
 import pandas as pd
 
@@ -119,13 +120,12 @@ import pandas as pd
 st.title("虚偽項目推定")
 
 # 1. ファイルアップロード
-uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="csv")
+uploaded_file = st.file_uploader("CSVファイルをアップロードしてください", type="xlsx")
 
 if uploaded_file:
-    data = pd.read_csv(uploaded_file, encoding='shift_jis')
-    match_count = data.iloc[0, 0] 
-    query_count = data.iloc[0, 1]
-    data = data.iloc[1:,]
+    data = pd.read_excel(uploaded_file, encoding='shift_jis')
+    match_count = 1000
+    query_count = 10
     st.write("### アルゴリズム実行中...")
     result = fake_detect(data,match_count,query_count)
     df = pd.DataFrame({
