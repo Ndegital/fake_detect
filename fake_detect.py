@@ -11,9 +11,9 @@ def fake_detect(data,query_count):
     lam = 0.01  # 罰金項の重み
     lam2 = 1/(query_count**2) #自滅防止項の重み
     for i in range(match_count):
-        worker.append(data_val[5*i+1])
-        company.append(data_val[5*i+2])
-        open_val.append(data_val[5*i+3])
+        worker.append(data_val[5*i+1, 0:])
+        company.append(data_val[5*i+2, 0:])
+        open_val.append(data_val[5*i+3, 0:])
         feedback.append(data_val[5*i+4, 0])
     
     worker = np.array(worker)
