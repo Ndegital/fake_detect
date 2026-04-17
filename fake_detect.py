@@ -113,7 +113,8 @@ def fake_detect(data,query_count):
             step_size *= 0.5
 
     bias_remove = bias_remove[0:2*query_count]
-    return bias_remove
+    prob_est = ((1 - bias_remove[0::2]) + bias_remove[1::2]) / 2
+    return prob_est
 
 
 import streamlit as st
